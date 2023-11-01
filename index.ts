@@ -157,6 +157,20 @@ app.get("/getImage/:id",async(req,res)=>{
             .catch((err)=>res.sendStatus(401));
 })
 
+app.put('/updateUser/:id',async(req,res)=>{
+  const uid = req.params.id;
+  
+  const {username,email,password} = req.body;
+  
+  
+  await User.findByIdAndUpdate(uid,{name:username,email:email,password:password})
+            .then((re)=>{
+              console.log(re);
+              
+              res.sendStatus(201)})
+            .catch((err)=>res.sendStatus(501));
+})
+
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
   mongoose.connect("mongodb+srv://labicons6:1tQCO5iQYOKQDNnS@cluster0.t1xpnv8.mongodb.net/?retryWrites=true&w=majority")
